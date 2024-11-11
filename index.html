@@ -22,9 +22,11 @@
             align-items: center;
             text-align: center;
             font-size: 13px;
+            margin-left: 1rem;
         }
         .comprovante img {
-            width: 150px; /* Ajuste o tamanho da imagem conforme necessário */
+            width: 250px;
+            height: 70px;
             margin-bottom: 20px;
         }
         .comprovante h2 {
@@ -51,17 +53,47 @@
             color: #555;
             text-align: left;
         }
-        .rodape{
-          margin: 3rem;
-          
+        .rodape {
+            margin-top: 35%;
+            text-align: center;
+            font-size: 13px;
+            color: #555;
         }
+        .jaboatao{
+            display: flex;
+            justify-content: center;
+            position: relative;
+            top: 150px;
+        }
+       
+        
+
+        /* Ocultar o botão de impressão na versão de impressão */
+        @media print {
+            .botao-imprimir {
+                display: none;
+            }
+            
+        }
+        @page {
+        margin: 0; /* Remove margens automáticas */
+    }
+    @media print {
+    /* Oculta tudo que não é o comprovante */
+    body, html {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin: 0;
+    }
+}
     </style>
 </head>
 <body>
     <div class="comprovante" id="comprovante">
         <img src="./logo.png" alt="Logo">
-        <h2>COMPROVANTE DE AGENDAMENTO PARA ATENDIMENTO PRESENCIAL<br>
-        SECRETARIA MUNICIPAL DE PLANEJAMENTO E FAZENDA</h2>
+        <h2>COMPROVANTE DE AGENDAMENTO PARA ATENDIMENTO PRESENCIAL</h2>
         <p>PRÉDIO DO PALÁCIO DA BATALHA - PRAZERES 5</p>
 
         <div class="linha"><strong>Protocolo:</strong><span id="protocolo"></span></div>
@@ -72,52 +104,52 @@
         <div class="linha"><strong>Local de Atendimento:</strong><span id="local"></span></div>
         <div class="linha"><strong>Tipo de Serviço:</strong><span id="servico"></span></div>
 
-        <div class="avisos">
+        <div class="avisos"><br> <br> 
             <h1>Atenção:</h1>
             <p>- Você terá tolerância de 15 minutos. Em caso de atraso, você terá que fazer outro agendamento.</p>
             <p>- Apresente o comprovante de agendamento em seu celular ou impresso no momento do atendimento.</p>
             <p>- Evite filas chegando no local de atendimento no horário agendado.</p>
         </div>
+        
+        <div class="jaboatao">
+            <p>Jaboatão dos Guararapes, <span id="dataAtual"></span></p>
+        </div>
 
         <div class="rodape"> 
-          <p>Atendimento ao Contribuinte<br>
-             Secretaria Executiva da Receita <br>
-             Secretaria Municipal de Planejamento da Fazenda <br>
-             Prefeitura Municipal de Jaboatão dos Guararapes</p> <br><br>
-          <p>Jaboatão dos Guararapes, <span id="dataAtual"></span></p>
-      </div>
+            <p>Atendimento ao Contribuinte <br>
+               Secretaria Executiva da Receita <br>
+               Secretaria Municipal de Planejamento da Fazenda<br> 
+               Prefeitura Municipal do Jaboatão dos Guararapes</p>
+        </div>
   
-      <script>
-          function formatarDataPorExtenso() {
-              const data = new Date();
-              const dia = data.getDate();
-              const meses = [
-                  "janeiro", "fevereiro", "março", "abril", "maio", "junho",
-                  "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
-              ];
-              const mes = meses[data.getMonth()];
-              const ano = data.getFullYear();
-              return `${dia} de ${mes} de ${ano}`;
-          }
-  
-          document.getElementById('dataAtual').textContent = formatarDataPorExtenso();
-      </script>
         <button class="botao-imprimir" onclick="imprimirComprovante()">Imprimir Comprovante</button>
     </div>
 
     <script>
-        function gerarProtocolo() {
-            return Math.floor(100000 + Math.random() * 900000).toString();
+
+
+        function formatarDataPorExtenso() {
+            const data = new Date();
+            const dia = data.getDate();
+            const meses = [
+                "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+            ];
+            const mes = meses[data.getMonth()];
+            const ano = data.getFullYear();
+            return `${dia} de ${mes} de ${ano}`;
         }
+  
+        document.getElementById('dataAtual').textContent = formatarDataPorExtenso();
 
         function preencherDados() {
-            document.getElementById('protocolo').textContent = gerarProtocolo();
-            document.getElementById('nome').textContent = "";
-            document.getElementById('cpf').textContent = "";
-            document.getElementById('data').textContent = "";
-            document.getElementById('hora').textContent = "";
-            document.getElementById('local').textContent = "";
-            document.getElementById('servico').textContent = "";
+            document.getElementById('protocolo').textContent = "" ; //Protocolo auto-incrementado no banco //
+            document.getElementById('nome').textContent = ""; // Puxar da tela de agendamento//
+            document.getElementById('cpf').textContent = ""; // Puxar da tela de agendamento//
+            document.getElementById('data').textContent = ""; // Puxar da tela de agendamento//
+            document.getElementById('hora').textContent = ""; // Puxar da tela de agendamento//
+            document.getElementById('local').textContent = ""; // Puxar da tela de agendamento//
+            document.getElementById('servico').textContent = ""; // Puxar da tela de agendamento//
         }
 
         function imprimirComprovante() {
